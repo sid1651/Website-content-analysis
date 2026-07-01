@@ -1,0 +1,23 @@
+:root {
+  /* Warm devotional saffron palette, tuned for harmony & contrast */
+  --dd-saffron: #ef7c1b; /* primary accent / CTAs */
+  --dd-saffron-soft: #f9a94e; /* lighter highlight */
+  --dd-deep: #8a3506; /* deepest surface (burnt sienna) */
+  --dd-maroon: #ad4409; /* primary dark surface: navbar, headers */
+  --dd-gold: #d8a94a; /* metallic gold accent */
+  --dd-cream: #fdf6ea; /* page background */
+  --dd-sand: #f7e6cd; /* soft section background */
+  --dd-ink: #331b0d; /* body text on light */
+}
+
+.font-display {
+  font-family: "Marcellus", serif;
+}
+
+.font-body {
+  font-family: "Mukta", sans-serif;
+}
+
+.font-deva {
+  font-family: "Tiro Devanagari Hindi", serif;
+}
