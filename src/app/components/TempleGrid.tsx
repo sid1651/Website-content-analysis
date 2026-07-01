@@ -5,6 +5,8 @@ import { temples } from "./data";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Reveal } from "./Reveal";
 import { Video360Viewer } from "./Video360Viewer";
+import vaishnoVideo from "../../imports/document_6208741329380319605.mp4";
+import goldenTempleVideo from "../../imports/untitled-design.mp4";
 
 type TempleGridProps = {
   limit?: number;
@@ -13,7 +15,10 @@ type TempleGridProps = {
 };
 
 // Temples that have an immersive 360° VR video available.
-const VR_TEMPLES = new Set(["vaishno"]);
+const VR_TEMPLE_VIDEOS: Record<string, string> = {
+  vaishno: vaishnoVideo,
+  "golden-temple": goldenTempleVideo,
+};
 
 export function TempleGrid({
   limit,
@@ -21,9 +26,11 @@ export function TempleGrid({
   showViewAll = false,
 }: TempleGridProps) {
   const list = limit ? temples.slice(0, limit) : temples;
-  const [viewer, setViewer] = useState<{ name: string; location: string } | null>(
-    null
-  );
+  const [viewer, setViewer] = useState<{
+    name: string;
+    location: string;
+    videoSrc: string;
+  } | null>(null);
 
   return (
     <section id="temples" className="bg-[var(--dd-cream)] py-20">
@@ -70,10 +77,14 @@ export function TempleGrid({
                 <p className="font-body mt-2 flex items-center gap-1.5 text-sm text-[var(--dd-ink)]/60">
                   <MapPin className="h-4 w-4" /> {t.location}
                 </p>
-                {VR_TEMPLES.has(t.id) ? (
+                {VR_TEMPLE_VIDEOS[t.id] ? (
                   <button
                     onClick={() =>
-                      setViewer({ name: t.name, location: t.location })
+                      setViewer({
+                        name: t.name,
+                        location: t.location,
+                        videoSrc: VR_TEMPLE_VIDEOS[t.id],
+                      })
                     }
                     className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-[var(--dd-saffron)] py-2.5 font-body text-sm text-white transition-transform hover:-translate-y-0.5"
                   >
@@ -105,6 +116,7 @@ export function TempleGrid({
         <Video360Viewer
           title={viewer.name}
           subtitle={viewer.location}
+          videoSrc={viewer.videoSrc}
           onClose={() => setViewer(null)}
         />
       )}

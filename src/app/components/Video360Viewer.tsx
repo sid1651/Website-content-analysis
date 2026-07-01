@@ -6,6 +6,7 @@ import vaishnoVideo from "../../imports/document_6208741329380319605.mp4";
 type Props = {
   title: string;
   subtitle?: string;
+  videoSrc: string;
   onClose: () => void;
 };
 
@@ -29,7 +30,7 @@ function setQuaternionFromOrientation(
   quaternion.multiply(q0.setFromAxisAngle(zee, -orient));
 }
 
-export function Video360Viewer({ title, subtitle, onClose }: Props) {
+export function Video360Viewer({ title, subtitle, videoSrc, onClose }: Props) {
   const mountRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [muted, setMuted] = useState(true);
@@ -69,7 +70,7 @@ export function Video360Viewer({ title, subtitle, onClose }: Props) {
 
     // Video element as texture source
     const video = document.createElement("video");
-    video.src = vaishnoVideo;
+    video.src = videoSrc;
     video.crossOrigin = "anonymous";
     video.loop = true;
     video.muted = true;
@@ -173,7 +174,7 @@ export function Video360Viewer({ title, subtitle, onClose }: Props) {
       renderer.dispose();
       if (el.parentNode) el.parentNode.removeChild(el);
     };
-  }, []);
+  }, [videoSrc]);
 
   // Detect whether iOS-style permission is required
   useEffect(() => {
